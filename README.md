@@ -1,12 +1,20 @@
-# Aula 07 - Java Swing + MySQL (VS Code)
+# Aula 07 - Java Swing + MySQL
 
-Projeto didático em Java Swing com acesso ao MySQL via JDBC, sem NetBeans, Maven ou Ant.
+Projeto baseado nos slides da Aula 07 de Laboratório de Desenvolvimento de Software.
+
+A implementação foi mantida simples e próxima ao exemplo apresentado em aula:
+
+- conexão com MySQL pela classe `Conexao`;
+- classe `Pessoa` no pacote `beans`;
+- classe `PessoaDAO` responsável pelo `INSERT`;
+- interface Swing simples para cadastrar pessoas;
+- exercícios SQL da aula incluídos em `sql/bdaula01.sql`.
 
 ## Estrutura
 
 ```text
 .
-├── lib/
+├── drivers/
 │   └── mysql-connector-j-8.1.0.jar
 ├── sql/
 │   └── bdaula01.sql
@@ -24,55 +32,59 @@ Projeto didático em Java Swing com acesso ao MySQL via JDBC, sem NetBeans, Mave
 └── README.md
 ```
 
-## Pré-requisitos
+## Banco de dados
 
-- Java/JDK instalado.
-- MySQL em execução.
-- VS Code com a extensão **Extension Pack for Java**.
+Execute `sql/bdaula01.sql` no MySQL.
 
-## Preparação do banco
+O arquivo contém os exemplos e exercícios da aula:
 
-1. Execute o arquivo `sql/bdaula01.sql` no MySQL.
-2. Configure as credenciais do banco por variáveis de ambiente.
+- criação do banco `BDAula01`;
+- criação da tabela `pessoa`;
+- inserções e consulta de pessoas;
+- criação do banco `escola`;
+- tabelas `alunos`, `professores` e `matriculas`;
+- cinco alunos;
+- três professores;
+- cinco matrículas;
+- consulta de alunos e seus cursos;
+- consulta de professores e suas disciplinas.
 
-No PowerShell:
+## Conexão
 
-```powershell
-$env:DB_USER="root"
-$env:DB_PASSWORD="SUA_SENHA"
+A classe `src/conexao/Conexao.java` segue o exemplo da aula:
+
+```text
+usuário: root
+senha: 1234
+banco: bdaula01
 ```
 
-Opcionalmente, a URL JDBC também pode ser alterada:
+No laboratório, a senha pode ser diferente. Se necessário, altere apenas a senha na classe `Conexao`.
 
-```powershell
-$env:DB_URL="jdbc:mysql://localhost:3306/bdaula01?useTimezone=true&serverTimezone=UTC"
-```
+## Interface
 
-Se `DB_USER` ou `DB_URL` não forem informadas, o projeto usa `root` e o banco local `bdaula01`. A senha não possui valor padrão.
+A interface segue a Atividade 1 dos slides:
 
-## Executar pelo VS Code
+- Nome em campo de texto;
+- Sexo com `JRadioButton` para Masculino e Feminino;
+- Idioma em `JComboBox`;
+- botão `Salvar`;
+- cadastro usando `PessoaDAO.inserir()`.
 
-Abra a raiz do repositório no VS Code e execute `src/app/Main.java` pelo botão **Run**.
+## Executar
 
-## Compilar e executar pelo PowerShell
+Abra o projeto e execute `src/app/Main.java`.
 
-Na raiz do projeto:
+Pelo PowerShell:
 
 ```powershell
 New-Item -ItemType Directory -Force out | Out-Null
 
-javac -encoding UTF-8 -cp "lib/mysql-connector-j-8.1.0.jar" -d out (Get-ChildItem -Recurse src -Filter *.java).FullName
+javac -encoding UTF-8 -cp "drivers/mysql-connector-j-8.1.0.jar" -d out (Get-ChildItem -Recurse src -Filter *.java).FullName
 
-java -cp "out;lib/mysql-connector-j-8.1.0.jar" app.Main
+java -cp "out;drivers/mysql-connector-j-8.1.0.jar" app.Main
 ```
 
-## Funcionalidades
+## Próxima atividade
 
-A aplicação implementa um CRUD simples de pessoas:
-
-- Cadastro;
-- Consulta/listagem;
-- Atualização;
-- Exclusão.
-
-O exemplo é dividido em modelo (`Pessoa`), conexão JDBC (`Conexao`), acesso a dados (`PessoaDAO`), interface Swing (`PessoaFrame`) e ponto de entrada (`Main`).
+A **Atividade 2** dos slides — conexão com o banco `escola` e cadastro de Alunos e Professores — fica para a próxima etapa e ainda não foi implementada.
