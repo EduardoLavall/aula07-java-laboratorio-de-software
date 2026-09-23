@@ -2,24 +2,23 @@ package conexao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
-/** Configuração de acesso ao MySQL por variáveis de ambiente. */
-public final class Conexao {
-    private static final String URL = valorOuPadrao(
-        System.getenv("DB_URL"),
-        "jdbc:mysql://localhost:3306/bdaula01?useTimezone=true&serverTimezone=UTC"
-    );
-    private static final String USUARIO = valorOuPadrao(System.getenv("DB_USER"), "root");
-    private static final String SENHA = valorOuPadrao(System.getenv("DB_PASSWORD"), "");
+public class Conexao {
 
-    private Conexao() { }
+    public Connection getConexao() {
+        try {
+            Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/bdaula01?useTimezone=true&serverTimezone=UTC",
+                "root",
+                "1234"
+            );
 
-    public static Connection getConexao() throws SQLException {
-        return DriverManager.getConnection(URL, USUARIO, SENHA);
-    }
+            System.out.println("Conexão realizada com sucesso!");
+            return conn;
 
-    private static String valorOuPadrao(String valor, String padrao) {
-        return valor == null || valor.isBlank() ? padrao : valor;
+        } catch (Exception e) {
+            System.out.println("Erro ao conectar no BD: " + e.getMessage());
+            return null;
+        }
     }
 }
