@@ -20,6 +20,7 @@ public class PessoaFrame extends JFrame {
 
     private final JRadioButton rbMasculino = new JRadioButton("Masculino");
     private final JRadioButton rbFeminino = new JRadioButton("Feminino");
+    private final ButtonGroup grupoSexo = new ButtonGroup();
 
     private final JComboBox<String> cbIdioma = new JComboBox<>(
         new String[] { "Português", "Inglês", "Espanhol", "Alemão", "Holandês" }
@@ -34,7 +35,6 @@ public class PessoaFrame extends JFrame {
         setSize(380, 220);
         setLocationRelativeTo(null);
 
-        ButtonGroup grupoSexo = new ButtonGroup();
         grupoSexo.add(rbMasculino);
         grupoSexo.add(rbFeminino);
 
@@ -85,14 +85,5 @@ public class PessoaFrame extends JFrame {
         txtNome.setText("");
         grupoSexo.clearSelection();
         cbIdioma.setSelectedIndex(0);
-    }
-
-    private final ButtonGroup grupoSexo = criarGrupoSexo();
-
-    private ButtonGroup criarGrupoSexo() {
-        ButtonGroup grupo = new ButtonGroup();
-        grupo.add(rbMasculino);
-        grupo.add(rbFeminino);
-        return grupo;
     }
 }
